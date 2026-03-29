@@ -4,19 +4,17 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Segoe UI', sans-serif;
+body {  /* sets default font for entire page */
+    font-family: 'Segoe UI', sans-serif;    
 }
 
 .app-shell {
-    display: flex;
+    display: flex; /* puts sidebar and main side by side horizontally */
     height: 100vh;
-    overflow: hidden;
+    overflow: hidden; /* prevents the whole page from scrolling */
 }
 
 .app-main {
-    margin-left: 60px;
-    flex: 1;
-    padding: 24px;
-    overflow-y: auto;
+    flex: 1;            
+    overflow-y: auto;   /* allows the main content to scroll if it gets too long */
 }
