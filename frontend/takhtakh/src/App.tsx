@@ -9,14 +9,20 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app-shell">
+
         <Sidebar />
+
         <main className="app-main">
+
           <Routes>
             <Route path='/' element={<Tasks/>}/>
             <Route path='/calendar' element={<Calendar/>}/>
             <Route path='/matrix' element={<Matrix/>}/>
+
           </Routes>
+
         </main>
+        
       </div>
     </BrowserRouter>
   );
