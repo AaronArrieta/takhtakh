@@ -54,3 +54,32 @@
     width:350px;
     padding: 24px;
 }
+
+.create-title {
+    font-size: 20px;
+    font-weight: 600px;
+    /* margin-inline: auto; */
+    margin-bottom: 24px;
+    color: #aaa;
+}
+
+.priority-btns {
+    display: flex;
+    gap: 8px;
+}
+
+.priority-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    background: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: border 0.15s;
+}
+
+.priority-btn.selected {
+    border-color: #4a6cf7;
+    background-color: #e8f0fe;
+}
