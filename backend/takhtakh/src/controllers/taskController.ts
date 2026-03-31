@@ -1,6 +1,6 @@
 // behaviour functions for "Task" Object in TakhTakh program (task.c)
 
-import { Task, PriorityLevel, Status } from "../models/task.js";
+import type { Task, PriorityLevel, Status } from "../models/task.js";
 
 const tasks: Task[] = []; // initialize Master array of Task Object
 

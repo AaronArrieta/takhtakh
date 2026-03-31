@@ -4,6 +4,13 @@
     // File Layout
     "rootDir": "./src",
     "outDir": "./dist",
+    "baseUrl": "../..",
+    "paths": {
+      "@shared/*": ["shared/*"]
+    },
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
@@ -39,5 +46,8 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
+  },
+  "tsx": {
+      "esm": true
   }
 }

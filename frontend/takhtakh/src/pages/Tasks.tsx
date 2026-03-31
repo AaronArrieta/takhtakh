@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Tasks.css'
+import { API_URL } from '../config'
+import type { Task } from '../../../../backend/takhtakh/src/models/task.ts'
 
 function Tasks() {
     const [selectedView, setSelectedView] = useState('Today')
@@ -9,9 +11,20 @@ function Tasks() {
     const [dueYear, setDueYear] = useState('')
     const [priority, setPriority] = useState('green')
 
-    function handleAddTask() {
-    if (taskName.trim() === '') return  // don't add empty tasks
-    console.log('Adding task:', taskName, dueDay, dueMonth, dueYear, priority)}
+    async function handleAddTask() {
+        if (taskName.trim() === '') return  // don't add empty tasks
+        const response = await fetch(`${API_URL}/taskAPI/create`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            name: taskName,
+            dueDate: `${dueYear}-${dueMonth}-${dueDay}`,
+            priorityLevel: priority
+        })
+    })
+    const data = await response.json()
+    console.log(data.message)
+    }  
 
     return (
         <div className="tasks-shell">
