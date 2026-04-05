@@ -17,4 +17,5 @@ body {  /* sets default font for entire page */
 .app-main {
     flex: 1;            
     overflow-y: auto;   /* allows the main content to scroll if it gets too long */
+    padding: 0;
 }
