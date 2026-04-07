@@ -15,7 +15,7 @@ export function createTask(name: string, dueDate: string, priorityLevel: Priorit
         id: crypto.randomUUID(),        // "hash()" a unique ID
         name: name,
         dueDate: dueDate,
-        status: "todo",
+        status: "To Do",
         priorityLevel: priorityLevel
     };
 
