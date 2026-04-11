@@ -3,57 +3,58 @@
     flex-direction: column;
     height: 100%;
     padding: 20px;
-    background-color: #f8f8f8;
+    background-color: var(--bg-secondary);
 }
 
 h1 {
     font-size: 20px;
-    font-weight: 600px;
+    font-weight: 600;
     text-align: center;
     margin-bottom: 20px;
-    color: #222;
+    color: var(--text-primary);
 }
 
-.calendar-dropdown{
+.calendar-dropdown {
     justify-content: center;
     display: flex;
     gap: 8px;
     margin-bottom: 8px;
-    select {
-        font-size: 20px;
-        padding: 6px 12px;
-        border: 1px solid #e8e8e8;
-        border-radius: 12px;
-        background: white;
-        color: #333;
-        font-weight: 500;
-        cursor: pointer;
-        outline: none;
+}
 
-    }
-    select:hover {
-        border-color: #ccc;
-        border-bottom: 2px solid #ccc;
-    }
+.calendar-dropdown select {
+    font-size: 20px;
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+}
+
+.calendar-dropdown select:hover {
+    border-color: var(--border-color);
+    border-bottom: 2px solid var(--border-color);
 }
 
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    background: #f5f5f5;
+    background: var(--bg-secondary);
     border-radius: 12px;
     padding: 8px;
     gap: 4px;
 }
 
 .calendar-grid > div {
-    background: white;
+    background: var(--card-bg);
     border-radius: 8px;
     padding: 8px;
     min-height: 80px;
     font-size: 14px;
-    color: #333;
-    box-shadow: 0 2px 8px rgb(0, 0, 0, 0.2);
+    color: var(--text-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .day-name {
@@ -66,7 +67,7 @@ h1 {
 .day-name > div {
     text-align: center;
     font-size: 13px;
-    color: #222;
+    color: var(--text-primary);
     font-weight: 600;
 }
 
@@ -90,6 +91,24 @@ h1 {
 
 .task-red {
     background-color: #e74c3c;
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+.task-blue {
+    background-color: rgb(71, 114, 250);
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+.task-undefined {
+    background-color: rgb(12, 206, 156);
     color: #ffffff;
     padding: 4px 8px;
     border-radius: 4px;

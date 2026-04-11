@@ -9,21 +9,21 @@ function Tasks() {
     const [dueDay, setDueDay] = useState('')
     const [dueMonth, setDueMonth] = useState('')
     const [dueYear, setDueYear] = useState('')
-    const [priority, setPriority] = useState('green')
-    const [tasks, setTasks] = useState<Task[]>([])                      // HM added: for display tasks in CheckList
-    const [isEditing, setIsEditing] = useState(false)                   // HM added: controls if modal is visible
-    const [editingTask, setEditingTask] = useState<Task | null>(null)   // HM added: which task is being edited
+    const [priority, setPriority] = useState('undefined')
+    const [tasks, setTasks] = useState<Task[]>([])
+    const [isEditing, setIsEditing] = useState(false)
+    const [editingTask, setEditingTask] = useState<Task | null>(null)
     const [editName, setEditName] = useState('')
     const [editDay, setEditDay] = useState('')
     const [editMonth, setEditMonth] = useState('')
     const [editYear, setEditYear] = useState('')
-    const [editPriority, setEditPriority] = useState('green')
+    const [editPriority, setEditPriority] = useState('undefined')
 
-    // HM added 4 HELPER FUNCTIONS
     function getPriorityLabel(priority: string) {
         if (priority === 'red') return 'High'
         if (priority === 'yellow') return 'Medium'
-        if (priority === 'green') return 'Low'
+        if (priority === 'blue') return 'Low'
+        if (priority === 'undefined') return 'Undefined'
         return 'Unknown'
     }
 
@@ -36,7 +36,6 @@ function Tasks() {
     function getFilteredTasks(): Task[] {
         const today = new Date()
 
-        // Case 1: Filter for Tasks where dueDate === Today
         if (selectedView === 'Today') {
             return tasks.filter(task => {
                 const taskDate = new Date(task.dueDate + 'T12:00:00')
@@ -47,25 +46,22 @@ function Tasks() {
             })
         }
 
-        // Case 2: Filter for Tasks between today up to 7 days from Today
         if (selectedView === 'Next 7 Days') {
             return tasks.filter(task => {
                 const taskDate = new Date(task.dueDate + 'T12:00:00')
                 const startOfToday = new Date(today)
-                startOfToday.setHours(0, 0, 0, 0)  // reset to midnight
+                startOfToday.setHours(0, 0, 0, 0)
                 const next7 = new Date(today)
                 next7.setDate(today.getDate() + 7)
                 return taskDate >= startOfToday && taskDate <= next7
             })
         }
 
-        // Case 3: Inbox (no filtering needed)
         return tasks
     }
 
     function formatDate(dueDate: string): string {
         const parts = dueDate.split('-')
-        // parts[0] = "2026", parts[1] = "04", parts[2] = "06"
         return `${parts[1]}/${parts[2]}/${parts[0]}`
     }
 
@@ -80,13 +76,12 @@ function Tasks() {
         setEditPriority(task.priorityLevel)
     }
 
-    // HM added useEffect
     useEffect(() => {
         fetchTasks()
     }, [])
 
     async function handleAddTask() {
-        if (taskName.trim() === '') return  // don't add empty tasks
+        if (taskName.trim() === '') return
         const response = await fetch(`${API_URL}/taskAPI/create`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -102,7 +97,6 @@ function Tasks() {
     }
 
     async function handleDeleteTask(id: string) {
-        // since empty tasks cannot be added, is not handled here (Delete only existing tasks)
         const response = await fetch(`${API_URL}/taskAPI/delete/${id}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' }
@@ -151,18 +145,15 @@ function Tasks() {
                 <button className={'view-btn' + (selectedView === 'Today' ? ' selected' : '')} onClick={() => setSelectedView('Today')}>
                     Today
                 </button>
-
                 <button className={'view-btn' + (selectedView === 'Next 7 Days' ? ' selected' : '')} onClick={() => setSelectedView('Next 7 Days')}>
                     Next 7 Days
                 </button>
-
                 <button className={'view-btn' + (selectedView === 'Inbox' ? ' selected' : '')} onClick={() => setSelectedView('Inbox')}>
                     Inbox
                 </button>
-
             </div>
 
-            {/* MIDDLE: Task List*/}
+            {/* MIDDLE: Task List */}
             <div className="tasks-main">
                 {getFilteredTasks().map(task => (
                     <div key={task.id} className={`task-card task-card-${task.priorityLevel}`}>
@@ -173,7 +164,7 @@ function Tasks() {
                         <div className="task-actions">
                             <button className="btn-action btn-action-delete" onClick={() => handleDeleteTask(task.id)}>Delete</button>
                             <span className="action-divider">|</span>
-                            <button className="btn-action btn-action-edit" onClick={() => { handleOpenEdit(task); setIsEditing(true) }}>Edit</button>
+                            <button className="btn-action btn-action-edit" onClick={() => handleOpenEdit(task)}>Edit</button>
                             <span className="action-divider">|</span>
                             <button className="btn-action btn-action-complete" onClick={() => handleCompleteTask(task.id)}>Complete</button>
                         </div>
@@ -181,18 +172,16 @@ function Tasks() {
                 ))}
             </div>
 
-            {/* RIGHT: Create Task - Task Forum */}
+            {/* RIGHT: Create Task */}
             <div className="tasks-create">
                 <h2 className='create-title'>CREATE TASK</h2>
 
-                {/* Task Name */}
                 <div className="mb-3">
                     <label className="form-label">TASK</label>
                     <input type="text" className="form-control" placeholder='Task name'
                         value={taskName} onChange={(e) => setTaskName(e.target.value)} />
                 </div>
 
-                {/* Due Date */}
                 <div className="mb-3">
                     <label className="form-label">DUE DATE</label>
                     <div className="d-flex gap-2">
@@ -202,22 +191,23 @@ function Tasks() {
                     </div>
                 </div>
 
-                {/* Priority + Add */}
                 <div className="mb-4">
                     <label className="form-label">PRIORITY</label>
                     <div className="d-flex justify-content-between align-items-center">
                         <div className="dropdown">
-                            <button className="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> {priority === 'red' ? '🟥 High' : priority === 'yellow' ? '🟨 Medium' : '🟩 Low'}</button>
+                            <button className="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {priority === 'red' ? '🟥 High' : priority === 'yellow' ? '🟨 Medium' : priority === 'blue' ? '🟦 Low' : '🟩 Undefined'}
+                            </button>
                             <ul className="dropdown-menu">
                                 <li><a className="dropdown-item" onClick={() => setPriority('red')}>🟥 High</a></li>
                                 <li><a className="dropdown-item" onClick={() => setPriority('yellow')}>🟨 Medium</a></li>
-                                <li><a className="dropdown-item" onClick={() => setPriority('green')}>🟩 Low</a></li>
+                                <li><a className="dropdown-item" onClick={() => setPriority('blue')}>🟦 Low</a></li>
+                                <li><a className="dropdown-item" onClick={() => setPriority('undefined')}>🟩 Undefined</a></li>
                             </ul>
                         </div>
                         <button type="button" className="btn btn-primary w-50" onClick={handleAddTask}>ADD</button>
                     </div>
                 </div>
-
             </div>
 
             {/* EDIT MODAL */}
@@ -241,14 +231,15 @@ function Tasks() {
                             <label className="form-label">PRIORITY</label>
                             <div className="dropdown">
                                 <button className="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                    {editPriority === 'red' ? '🟥 High' : editPriority === 'yellow' ? '🟨 Medium' : '🟩 Low'}
+                                    {editPriority === 'red' ? '🟥 High' : editPriority === 'yellow' ? '🟨 Medium' : editPriority === 'blue' ? '🟦 Low' : '🟩 Undefined'}
                                 </button>
                                 <ul className="dropdown-menu">
                                     <li><a className="dropdown-item" onClick={() => setEditPriority('red')}>🟥 High</a></li>
                                     <li><a className="dropdown-item" onClick={() => setEditPriority('yellow')}>🟨 Medium</a></li>
-                                    <li><a className="dropdown-item" onClick={() => setEditPriority('green')}>🟩 Low</a></li>
+                                    <li><a className="dropdown-item" onClick={() => setEditPriority('blue')}>🟦 Low</a></li>
+                                    <li><a className="dropdown-item" onClick={() => setEditPriority('undefined')}>🟩 Undefined</a></li>
                                 </ul>
-                            </div>
+                        </div>
                         </div>
                         <div className="d-flex gap-2">
                             <button className="btn btn-primary w-50" onClick={handleEditTask}>Finish Editing</button>

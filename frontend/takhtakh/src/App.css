@@ -19,3 +19,25 @@ body {  /* sets default font for entire page */
     overflow-y: auto;   /* allows the main content to scroll if it gets too long */
     padding: 0;
 }
+
+[data-bs-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --border-color: #e0e0e0;
+    --text-primary: #222;
+    --text-muted: #888;
+    --hover-bg: #f0f0f0;
+    --selected-bg: #e0e0e0;
+    --card-bg: #ffffff;
+}
+
+[data-bs-theme="dark"] {
+    --bg-primary: #252525;
+    --bg-secondary: #222222;
+    --border-color: #333333;
+    --text-primary: #e0e0e0;
+    --text-muted: #888;
+    --hover-bg: #2e2e2e;
+    --selected-bg: #323232;
+    --card-bg: #2a2a2a;
+}

@@ -1,9 +1,9 @@
 .sidebar {
     margin-block: auto;
-    background-color: #f8f9fa;  
+    background-color: var(--bg-secondary);  
     width: 60px;
     height: 100vh;
-    border-right: 1px solid #e0e0e0;
+    border-right: 1px solid var(--border-color);
     
     display: flex;
     align-items: center;
@@ -35,8 +35,12 @@
     transition: background 0.15s, color 0.15s;
 }
 
-.sidebar-link.active {
-    color:black;
+[data-bs-theme="light"] .sidebar-link.active {
+    color: #000000 !important;
+}
+
+[data-bs-theme="dark"] .sidebar-link.active {
+    color: #ffffff !important;
 }
 
 .sidebar-link:hover {

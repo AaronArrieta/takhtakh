@@ -6,17 +6,17 @@
 
 .tasks-views {
     width:200px;
-    border-right: 1px solid #e0e0e0;
+    border-right: 1px solid var(--border-color);
     padding: 16px 8px;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     gap: 4px;
+    background-color: var(--bg-secondary);
 }
 
 .views-label {
     font-size: 20px;
-    color: #aaa;
+    color: var(--text-muted);
     margin-inline: auto;
     margin-top: 250px;
 }
@@ -30,37 +30,39 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
-    color: #555;
+    color: var(--text-primary);
     transition: background 0.15s;
 }
 
 .view-btn:hover {
-    background-color: #f0f0f0;
+    background-color: var(--hover-bg);
 }
 
 .view-btn.selected {
-    background-color: #e0e0e0;
-    font-weight: 600px;
-    color: #222;
+    background-color: var(--selected-bg);
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
 .tasks-main {
     flex: 1;
     padding: 24px;
-    border-right: 1px solid #e0e0e0;
+    border-right: 1px solid var(--border-color);
+    background-color: var(--bg-primary);
 }
 
 .tasks-create {
     width:350px;
     padding: 24px;
+    background-color: var(--bg-secondary);
 }
 
 .create-title {
     font-size: 20px;
-    font-weight: 600px;
+    font-weight: 600;
     margin-inline: auto;
     margin-bottom: 24px;
-    color: #aaa;
+    color: var(--text-muted);
     text-align: center;
 }
 
@@ -89,7 +91,8 @@
     padding: 12px 16px;
     border-radius: 6px;
     margin-bottom: 10px;
-    border: 2px solid #ddd;
+    border: 2px solid var(--border-color);
+    background-color: var(--card-bg);
 }
 
 .task-card-red {
@@ -100,14 +103,18 @@
     border-color: #f0a500;
 }
 
-.task-card-green {
-    border-color: #27ae60;
+.task-card-undefined {
+    border-color: rgb(12, 206, 156);
+}
+
+.task-card-blue {
+    border-color: rgb(71, 114, 250);
 }
 
 .task-card p {
     margin: 0;
     font-size: 14px;
-    color: #333;
+    color: var(--text-primary);
 }
 
 .btn-delete {
@@ -147,7 +154,7 @@
 
 .btn-action-delete:hover  { color: #e74c3c; }
 .btn-action-edit:hover    { color: #4a90e2; }
-.btn-action-complete:hover { color: #27ae60; }
+.btn-action-complete:hover { color: rgb(12, 206, 156); }
 
 .modal-overlay {
     position: fixed;
@@ -161,9 +168,21 @@
 }
 
 .modal-box {
-    background: white;
+    background: var(--card-bg);
     padding: 32px;
     border-radius: 10px;
     width: 400px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+[data-bs-theme="light"] .dropdown-toggle {
+    background-color: #ffffff;
+    border-color: #dee2e6;
+    color: #333;
+}
+
+[data-bs-theme="dark"] .dropdown-toggle {
+    background-color: #212121;
+    border-color: #4a4a5f;
+    color: #e0e0e0;
 }
