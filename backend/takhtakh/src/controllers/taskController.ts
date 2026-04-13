@@ -1,8 +1,37 @@
 // behaviour functions for "Task" Object in TakhTakh program (task.c)
 
 import type { Task, PriorityLevel, Status } from "../models/task.js";
+import {saveData, loadData} from "../storage.js"
 
 const tasks: Task[] = []; // initialize Master array of Task Object
+const taskLocation: string = 'tasks.json'
+
+export async function saveTasks(): Promise<boolean> {
+    try {
+        await saveData(tasks, taskLocation);
+        return true;
+    } catch (error) {
+        console.error("Error saving tasks:", error);
+        return false;
+    }
+}
+
+export async function loadTasks(): Promise<boolean> {
+    try {
+        const loadedTasks = await loadData(taskLocation);
+        if (Array.isArray(loadedTasks)) {
+            tasks.length = 0;   
+            tasks.push(...loadedTasks);
+            return true;
+        } else {
+            console.error("Loaded data is not an array:", loadedTasks);
+            return false;
+        }
+    } catch (error) {
+        console.error("Error loading tasks:", error);
+        return false;
+    }
+}
 
 export function getAllTasks(): Task[] {
     return tasks;
@@ -22,6 +51,8 @@ export function createTask(name: string, dueDate: string, priorityLevel: Priorit
     // add newTask into master array
     tasks.push(newTask);
 
+    saveTasks();
+    
     return newTask;
 }
 
@@ -31,6 +62,7 @@ export function deleteTask(id: string): boolean {
     for (let i: number = 0; i < tasks.length; i++) {
         if (tasks[i]?.id === id) {
             tasks.splice(i, 1);     // REMOVE element @ index i
+            saveTasks();
             return true;
         }
     }
@@ -69,6 +101,7 @@ export function editTask(id: string, name?: string, dueDate?: string, status?: S
                 task.priorityLevel = priorityLevel;
             }
 
+            saveTasks();
             return true;
         }
     }
@@ -90,6 +123,7 @@ export function updateStatus(id: string, status: Status): boolean {
         if (task.id === id) {
             
             task.status = status;
+            saveTasks();
             return true;
         }
 
