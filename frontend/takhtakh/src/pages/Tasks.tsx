@@ -87,7 +87,7 @@ function Tasks() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 name: taskName,
-                dueDate: `${dueYear}-${dueMonth}-${dueDay}`,
+                dueDate: `${dueYear}-${dueMonth.padStart(2, '0')}-${dueDay.padStart(2, '0')}`,
                 priorityLevel: priority
             })
         })
@@ -124,8 +124,7 @@ function Tasks() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 name: editName,
-                dueDate: `${editYear}-${editMonth}-${editDay}`,
-                priorityLevel: editPriority
+                dueDate: `${editYear}-${editMonth.padStart(2, '0')}-${editDay.padStart(2, '0')}`,                priorityLevel: editPriority
             })
         })
         const data = await response.json()
