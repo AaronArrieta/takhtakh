@@ -29,6 +29,12 @@ function Calendar() {
         fetchTasks()
     }, [])
 
+    function getTasksForDay(day: number) {
+    return tasks.filter(task => 
+        task.dueDate.split('-').map(Number).join('-') === `${year}-${month + 1}-${day}`
+    )
+}
+
     return(
         <div className="calendar-shell">
             <h1>CALENDAR VIEW</h1>
@@ -49,7 +55,16 @@ function Calendar() {
                  </div>
                 <div className="calendar-grid">
                     {startBuffer.map((_, i) => <div key={i}></div>)}
-                    {days.map(day => <div key={day}>{day}{tasks.filter(task => task.dueDate === (`${year}-${month + 1}-${day}`)).map(task => <div key={task.id} className={`task-${task.priorityLevel}`}>{task.name}</div>)}</div>)}
+                    {days.map(day => 
+                        <div key={day}>
+                            {day}
+                            {getTasksForDay(day).map(task => 
+                                <div key={task.id} className={`task-${task.priorityLevel}`}>
+                                    {task.name}
+                                </div>
+                            )}
+                        </div>
+                    )}
                     {endBuffer.map((_, i) => <div key={i}></div>)}
                 </div>
         </div>

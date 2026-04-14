@@ -2,7 +2,7 @@ export { saveData, loadData }
 
 import { promises as fsPromises, existsSync } from 'fs';
 
-const dataDirectory: string = './backend/takhtakh/data/';
+const dataDirectory: string = './data/';
 
 async function saveData(data: any, location: string): Promise<void> {
     return fsPromises.writeFile(`${dataDirectory}${location}`, JSON.stringify(data), 'utf8')
